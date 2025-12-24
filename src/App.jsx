@@ -1,12 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import "./styles.css";
 
 const SECTIONS = [
@@ -15,7 +7,6 @@ const SECTIONS = [
   { key: "pensamentos", label: "Pensamentos" },
 ];
 
-// Exemplo de dados (edita à vontade)
 const ENTRIES = [
   {
     id: "g1",
@@ -62,7 +53,7 @@ function formatDate(iso) {
 export default function App() {
   const [activeSection, setActiveSection] = useState("gastronomia");
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(null); // entry object when modal open
+  const [open, setOpen] = useState(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -70,30 +61,30 @@ export default function App() {
       .filter((e) => e.section === activeSection)
       .filter((e) => {
         if (!q) return true;
-        const hay = [
-          e.title,
-          e.place,
-          e.text,
-          ...(e.tags || []),
-          e.date,
-        ]
+        const hay = [e.title, e.place, e.text, ...(e.tags || []), e.date]
           .join(" ")
           .toLowerCase();
         return hay.includes(q);
       })
-      .sort((a, b) => (a.date < b.date ? 1 : -1)); // mais recentes primeiro
+      .sort((a, b) => (a.date < b.date ? 1 : -1));
   }, [activeSection, query]);
 
   return (
     <div className="app">
-      <Header />
+      <header className="header">
+        <div className="container header__inner">
+          <div className="brand">
+            <span className="brand__dot" />
+            <span className="brand__name">Memórias</span>
+          </div>
+          <div className="muted small">feito a dois</div>
+        </div>
+      </header>
 
       <main className="container">
         <section className="hero">
           <h1>As nossas memórias</h1>
-          <p>
-            Gastronomia, experiências e pensamentos — guardados num só lugar.
-          </p>
+          <p>Gastronomia, experiências e pensamentos — guardados num só lugar.</p>
         </section>
 
         <section className="controls">
@@ -160,108 +151,61 @@ export default function App() {
         </section>
       </main>
 
-      <Footer />
+      <footer className="footer">
+        <div className="container footer__inner">
+          <span className="muted small">© {new Date().getFullYear()}</span>
+          <span className="muted small">um site só nosso</span>
+        </div>
+      </footer>
 
-      {open ? <Modal entry={open} onClose={() => setOpen(null)} /> : null}
+      {open ? (
+        <div
+          className="modal"
+          role="dialog"
+          aria-modal="true"
+          onClick={(ev) => {
+            if (ev.target.classList.contains("modal")) setOpen(null);
+          }}
+        >
+          <div className="modal__panel">
+            <button
+              className="modal__close"
+              onClick={() => setOpen(null)}
+              aria-label="Fechar"
+            >
+              ✕
+            </button>
+
+            <div className="modal__head">
+              <div className="meta">
+                <span>{formatDate(open.date)}</span>
+                {open.place ? <span>• {open.place}</span> : null}
+              </div>
+              <h2>{open.title}</h2>
+            </div>
+
+            <p className="modal__text">{open.text}</p>
+
+            {open.photos?.length ? (
+              <div className="gallery">
+                {open.photos.map((src) => (
+                  <img key={src} src={src} alt={open.title} loading="lazy" />
+                ))}
+              </div>
+            ) : null}
+
+            {open.tags?.length ? (
+              <div className="tags">
+                {open.tags.map((t) => (
+                  <span key={t} className="tag">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
-
-function Header() {
-  return (
-    <header className="header">
-      <div className="container header__inner">
-        <div className="brand">
-          <span className="brand__dot" />
-          <span className="brand__name">Memórias</span>
-        </div>
-        <div className="muted small">feito a dois</div>
-      </div>
-    </header>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="container footer__inner">
-        <span className="muted small">© {new Date().getFullYear()}</span>
-        <span className="muted small">um site só nosso</span>
-      </div>
-    </footer>
-  );
-}
-
-function Modal({ entry, onClose }) {
-  return (
-    <div
-      className="modal"
-      role="dialog"
-      aria-modal="true"
-      onClick={(e) => {
-        if (e.target.classList.contains("modal")) onClose();
-      }}
-    >
-      <div className="modal__panel">
-        <button className="modal__close" onClick={onClose} aria-label="Fechar">
-          ✕
-        </button>
-
-        <div className="modal__head">
-          <div className="meta">
-            <span>{formatDate(entry.date)}</span>
-            {entry.place ? <span>• {entry.place}</span> : null}
-          </div>
-          <h2>{entry.title}</h2>
-        </div>
-
-        <p className="modal__text">{entry.text}</p>
-
-        {entry.photos?.length ? (
-          <div className="gallery">
-            {entry.photos.map((src) => (
-              <img key={src} src={src} alt={entry.title} loading="lazy" />
-            ))}
-          </div>
-        ) : null}
-
-        {entry.tags?.length ? (
-          <div className="tags">
-            {entry.tags.map((t) => (
-              <span key={t} className="tag">
-                {t}
-              </span>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
