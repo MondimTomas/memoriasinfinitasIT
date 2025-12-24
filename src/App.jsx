@@ -6,48 +6,94 @@ const SECTIONS = [
   { key: "experiencias", label: "Experiências" },
 ];
 
-// ---- DADOS (edita à vontade) ----
-// Fotos ficam em /public/photos/... e referenciam-se assim: "/photos/xxx.jpg"
+// ✅ Fotos: coloca em /public/photos/*.jpg  -> usa "/photos/nome.jpg"
+// ✅ Vídeos: coloca em /public/videos/*.mp4 -> usa "/videos/nome.mp4"
 const ENTRIES = [
+  // -----------------
   // GASTRONOMIA
- {
-  id: "g-moments-lounge-tapas",
-  section: "gastronomia",
-  title: "Jantar — Moments Lounge Tapas",
-  date: "2025-10-02", // muda se quiseres
-  place: "Moments Lounge Tapas",
-  description: "Segunda reunião. Comemos polvo e tataki de atum, e bebemos sangria louca.",
-  photos: ["/photos/moments1.jpg", "/photos/moments2.jpg"],
-  ratingInes: 7,
-  ratingTomas: 7,
-},
-
-
-  // EXPERIÊNCIAS (pode ter data única OU range)
+  // -----------------
   {
-  id: "e-cruzes-praia-2025-10-06",
-  section: "experiencias",
-  title: "Cruzes e praia",
-  place: "Setúbal",
-  dateStart: "2025-10-06",
-  dateEnd: "",
-  descTomas:
-    "Foi um dia absurdo, nunca pensei ter tanta conexão com uma pessoa logo nos primeiros tempos e ter o à-vontade para fazer atividades que para mim são tão pessoais como trilhas e praia.",
-  descInes: "⏳ loading…",
-  photos: [
-    "/photos/cruzes1.jpg",
-    "/photos/cruzes2.jpg",
-    "/photos/cruzes3.jpg",
-    "/photos/praia1.jpg",
-    "/photos/praia2.jpg",
-    "/photos/praia3.jpg",
-  ],
+    id: "g-moments-lounge-tapas",
+    section: "gastronomia",
+    title: "Jantar — Moments Lounge Tapas",
+    date: "", // mete a data quando quiseres (ex: "2025-12-24")
+    place: "Moments Lounge Tapas",
+    description: "Segunda reunião. Polvo e tataki de atum. Sangria louca.",
+    photos: ["/photos/moments1.jpg", "/photos/moments2.jpg"],
+    ratingInes: 7,
+    ratingTomas: 7,
+  },
+  {
+    id: "g-kamagami-ramen-2025-10-06",
+    section: "gastronomia",
+    title: "Jantar — Kamagami Ramen",
+    date: "2025-10-06",
+    place: "Kamagami Ramen",
+    description:
+      "Depois de um dia de praia fomos comer um belo ramen e uma bebida horripilante.",
+    photos: ["/photos/ramen1.jpg"],
+    ratingInes: "⏳ loading…",
+    ratingTomas: "⏳ loading…",
+  },
+
+  {
+  id: "g-o-cruzamento-2025-10-18",
+  section: "gastronomia",
+  title: "Almoço — O Cruzamento",
+  date: "2025-10-18",
+  place: "O Cruzamento",
+  description:
+    "O último almoço de solteiros das nossas vidas. Carne muito boa e ótima relação qualidade/preço.",
+  photos: ["/photos/cruzamento1.jpg"],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
 },
 
+
+  // -----------------
+  // EXPERIÊNCIAS
+  // -----------------
+  {
+    id: "e-cruzes-praia-2025-10-06",
+    section: "experiencias",
+    title: "Cruzes e praia",
+    place: "Setúbal",
+    dateStart: "2025-10-06",
+    dateEnd: "",
+
+    descTomas:
+      "Foi um dia absurdo, nunca pensei ter tanta conexão com uma pessoa logo nos primeiros tempos e ter o à-vontade para fazer atividades que para mim são tão pessoais como trilhas e praia.",
+    descInes: "⏳ loading…",
+
+    photos: [
+      "/photos/cruzes1.jpg",
+      "/photos/cruzes2.jpg",
+      "/photos/cruzes3.jpg",
+      "/photos/praia1.jpg",
+      "/photos/praia2.jpg",
+      "/photos/praia3.jpg",
+    ],
+    videos: [],
+  },
+  {
+    id: "e-tenis-2025-10-01",
+    section: "experiencias",
+    title: "Primeira vez a jogarmos ténis",
+    place: "",
+    dateStart: "2025-10-01",
+    dateEnd: "",
+
+    descTomas:
+      "Não há registos deste momento pois ainda estávamos muitos nervosos, mas para uma segunda reunião tivemos uma intrusão desportiva como nunca antes visto.",
+    descInes: "⏳ loading…",
+
+    photos: ["/photos/tenis1.PNG"],
+    videos: ["/videos/tenisvideo.MOV"], // ⚠️ recomenda-se MP4 (MOV pode falhar no Chrome)
+  },
 ];
 
 function formatDate(iso) {
-  if (!iso) return "";
+  if (!iso) return "—";
   const [y, m, d] = iso.split("-").map(Number);
   return new Date(y, m - 1, d).toLocaleDateString("pt-PT", {
     day: "numeric",
@@ -57,26 +103,40 @@ function formatDate(iso) {
 }
 
 function formatDateRange(start, end) {
-  if (!start) return "";
+  if (!start) return "—";
   if (!end || end === start) return formatDate(start);
 
   const s = start.split("-").map(Number);
   const e = end.split("-").map(Number);
-  const ds = new Date(s[0], s[1] - 1, s[2]);
-  const de = new Date(e[0], e[1] - 1, e[2]);
 
-  // Se for no mesmo mês/ano, fica mais clean: "15–16 junho 2024"
   const sameMonth = s[0] === e[0] && s[1] === e[1];
   if (sameMonth) {
-    const monthYear = de.toLocaleDateString("pt-PT", { month: "long", year: "numeric" });
+    const monthYear = new Date(e[0], e[1] - 1, e[2]).toLocaleDateString("pt-PT", {
+      month: "long",
+      year: "numeric",
+    });
     return `${s[2]}–${e[2]} ${monthYear}`;
   }
+
   return `${formatDate(start)} – ${formatDate(end)}`;
 }
 
 function fmtRating(x) {
   if (x === null || x === undefined || x === "") return "—";
-  return Number.isFinite(Number(x)) ? String(x) : String(x);
+  // Se for número ou string numérica
+  const n = Number(x);
+  if (Number.isFinite(n) && String(x).trim() !== "") return String(x);
+  return String(x);
+}
+
+function getSortDate(entry) {
+  const d =
+    entry.section === "gastronomia"
+      ? entry.date
+      : entry.dateStart;
+
+  // datas vazias vão para o fim
+  return d && d.length ? d : "0000-00-00";
 }
 
 export default function App() {
@@ -94,7 +154,14 @@ export default function App() {
 
         const hay =
           e.section === "gastronomia"
-            ? [e.title, e.place, e.description, e.date, e.ratingInes, e.ratingTomas].join(" ")
+            ? [
+                e.title,
+                e.place,
+                e.description,
+                e.date,
+                e.ratingInes,
+                e.ratingTomas,
+              ].join(" ")
             : [
                 e.title,
                 e.place,
@@ -106,11 +173,7 @@ export default function App() {
 
         return hay.toLowerCase().includes(q);
       })
-      .sort((a, b) => {
-        const da = a.section === "gastronomia" ? a.date : a.dateStart;
-        const db = b.section === "gastronomia" ? b.date : b.dateStart;
-        return da < db ? 1 : -1;
-      });
+      .sort((a, b) => (getSortDate(a) < getSortDate(b) ? 1 : -1));
   }, [activeSection, query]);
 
   return (
@@ -148,7 +211,7 @@ export default function App() {
 
           <input
             className="search"
-            placeholder="Pesquisar (ex.: Porto, ramen, Lisboa)…"
+            placeholder="Pesquisar (ex.: Setúbal, ramen, praia)…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             aria-label="Pesquisar memórias"
@@ -157,12 +220,20 @@ export default function App() {
 
         <section className="grid">
           {filtered.map((e) => (
-            <article key={e.id} className="card" onClick={() => setOpen(e)}>
+            <article
+              key={e.id}
+              className="card"
+              onClick={() => setOpen(e)}
+              role="button"
+              tabIndex={0}
+            >
               <div className="thumb">
                 {e.photos?.[0] ? (
                   <img src={e.photos[0]} alt={e.title} loading="lazy" />
                 ) : (
-                  <div className="thumb__empty">✨</div>
+                  <div className="thumb__empty">
+                    {e.section === "gastronomia" ? "🍽️" : "✨"}
+                  </div>
                 )}
               </div>
 
@@ -199,6 +270,11 @@ export default function App() {
                     <p className="excerpt">
                       <span className="muted">Inês:</span> {e.descInes}
                     </p>
+                    {e.videos?.length ? (
+                      <div className="miniBadgeRow">
+                        <span className="miniBadge">🎥 {e.videos.length} vídeo(s)</span>
+                      </div>
+                    ) : null}
                   </>
                 )}
               </div>
@@ -230,7 +306,11 @@ export default function App() {
           }}
         >
           <div className="modal__panel">
-            <button className="modal__close" onClick={() => setOpen(null)} aria-label="Fechar">
+            <button
+              className="modal__close"
+              onClick={() => setOpen(null)}
+              aria-label="Fechar"
+            >
               ✕
             </button>
 
@@ -259,37 +339,42 @@ export default function App() {
                   <span className="badge">Inês: {fmtRating(open.ratingInes)}</span>
                   <span className="badge">Tomás: {fmtRating(open.ratingTomas)}</span>
                 </div>
-
-                {open.photos?.length ? (
-                  <div className="gallery">
-                    {open.photos.map((src) => (
-                      <img key={src} src={src} alt={open.title} loading="lazy" />
-                    ))}
-                  </div>
-                ) : null}
               </>
             ) : (
-              <>
-                <div className="twoCol">
-                  <div className="col">
-                    <h3 className="colTitle">Tomás</h3>
-                    <p className="modal__text">{open.descTomas}</p>
-                  </div>
-                  <div className="col">
-                    <h3 className="colTitle">Inês</h3>
-                    <p className="modal__text">{open.descInes}</p>
-                  </div>
+              <div className="twoCol">
+                <div className="col">
+                  <h3 className="colTitle">Tomás</h3>
+                  <p className="modal__text">{open.descTomas}</p>
                 </div>
-
-                {open.photos?.length ? (
-                  <div className="gallery">
-                    {open.photos.map((src) => (
-                      <img key={src} src={src} alt={open.title} loading="lazy" />
-                    ))}
-                  </div>
-                ) : null}
-              </>
+                <div className="col">
+                  <h3 className="colTitle">Inês</h3>
+                  <p className="modal__text">{open.descInes}</p>
+                </div>
+              </div>
             )}
+
+            {/* ✅ Vídeos aparecem em ambas as secções */}
+            {open.videos?.length ? (
+              <div className="videoGrid">
+                {open.videos.map((src) => (
+                  <video
+                    key={src}
+                    src={src}
+                    controls
+                    playsInline
+                    preload="metadata"
+                  />
+                ))}
+              </div>
+            ) : null}
+
+            {open.photos?.length ? (
+              <div className="gallery">
+                {open.photos.map((src) => (
+                  <img key={src} src={src} alt={open.title} loading="lazy" />
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}
