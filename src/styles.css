@@ -1,9 +1,26 @@
+html, body, #root { height: 100%; }
+
+.app{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* o teu <main className="container"> vai crescer e empurrar o footer para baixo */
+.container{
+  flex: 1;
+}
+
 :root{
   --bg:#0b0b0d; --card:#141419; --text:#f2f2f3; --muted:#b9b9c2;
   --border:rgba(255,255,255,.12); --radius:18px; --shadow:0 14px 40px rgba(0,0,0,.35);
 }
 *{ box-sizing:border-box; } body{ margin:0; font-family: system-ui; background:linear-gradient(180deg,var(--bg),#050506); color:var(--text); }
-.container{ width:min(1100px,calc(100% - 40px)); margin:0 auto; }
+.container{
+  width: min(1400px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
 .small{ font-size:12px; } .muted{ color:var(--muted); }
 
 .header{ position:sticky; top:0; background:rgba(11,11,13,.7); backdrop-filter: blur(10px); border-bottom:1px solid var(--border); }
