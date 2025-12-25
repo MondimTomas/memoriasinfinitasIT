@@ -43,11 +43,79 @@ const ENTRIES = [
   date: "2025-10-18",
   place: "O Cruzamento",
   description:
-    "O último almoço de solteiros das nossas vidas. Carne muito boa e ótima relação qualidade/preço.",
+    "Carne muito boa e ótima relação qualidade/preço.",
   photos: ["/photos/cruzamento1.jpg"],
   ratingInes: "⏳ loading…",
   ratingTomas: "⏳ loading…",
 },
+{
+  id: "g-torreao-tio-joaquim-2025-10-18",
+  section: "gastronomia",
+  title: "Torreão / Ti Joaquim",
+  date: "2025-10-18",
+  place: "Torreão / Ti Joaquim",
+  description:
+    "Comemos migas e feijoada de búzios ao pé da praia dos Buzinhos, onde fomos muito felizes.",
+  photos: ["/photos/otorreao.jpg"],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
+},
+
+{
+  id: "g-jncquoi-comporta-2025-10-19",
+  section: "gastronomia",
+  title: "Jantar — JNcQUOI Comporta",
+  date: "2025-10-19",
+  place: "JNcQUOI Comporta",
+  description:
+    "Comida overpriced mas muito boa. Troquei a faca da minha mulher de madeira para metal pela primeira vez ahaha. Sobremesa aterradora, mas também porque já estávamos muito cheios.",
+  photos: [
+    "/photos/jncquoi1.jpg",
+    "/photos/jncquoi2.jpg",
+    "/photos/jncquoi3.jpg",
+    "/photos/jncquoi4.jpg",
+  ],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
+},
+{
+  id: "g-barista-gastrobar-2025-10-22",
+  section: "gastronomia",
+  title: "Barista Gastrobar",
+  date: "2025-10-22",
+  place: "Setúbal",
+  description:
+    "Comida venezuelana — bem diferente e inspirador para futuros cozinhados. Bebidas com expectativa elevada mas não grande coisa.",
+  photos: ["/photos/gastrobar1.jpg"],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
+},
+
+{
+  id: "g-zama-beach-club-2025-10-24",
+  section: "gastronomia",
+  title: "Zama Beach Club",
+  date: "2025-10-24",
+  place: "Zama Beach Club",
+  description:
+    "Comida horrível, mas valeu pelo stand-up de qualidade e pela companhia como sempre.",
+  photos: ["/photos/zama1.jpg"],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
+},
+{
+  id: "g-stack-smash-burgers-2025-10-27",
+  section: "gastronomia",
+  title: "Stack Smash Burgers",
+  date: "2025-10-27",
+  place: "Stack Smash Burgers",
+  description:
+    "Hambúrgueres muito bons depois do trabalho — confortante.",
+  photos: ["/photos/stack1.jpg"],
+  ratingInes: "⏳ loading…",
+  ratingTomas: "⏳ loading…",
+},
+
 
 
   // -----------------
@@ -90,6 +158,44 @@ const ENTRIES = [
     photos: ["/photos/tenis1.PNG"],
     videos: ["/videos/tenisvideo.MOV"], // ⚠️ recomenda-se MP4 (MOV pode falhar no Chrome)
   },
+{
+  id: "e-ares-do-monte-2025-10-18",
+  section: "experiencias",
+  title: "Ares do Monte — Turismo Rural",
+  place: "Ares do Monte",
+  dateStart: "2025-10-18",
+  dateEnd: "2025-10-19",
+  descTomas:
+    "Ficámos de 18 a 19 e fomos muito bem recebidos. Ótimo pequeno-almoço e uma vista incrível.",
+  descInes: "⏳ loading…",
+  photos: [
+    "/photos/aresdomonte1.jpg",
+    "/photos/aresdomonte2.jpg",
+    "/photos/aresdomonte3.jpg",
+  ],
+  videos: [],
+},
+{
+  id: "e-badoca-2025-10-19",
+  section: "experiencias",
+  title: "Badoca",
+  place: "Badoca Safari Park",
+  dateStart: "2025-10-19",
+  dateEnd: "",
+  descTomas:
+    "Experiência muito gira e uma iniciação para um dia irmos à Tanzânia.",
+  descInes: "⏳ loading…",
+  photos: [
+    "/photos/badoca1.jpg",
+    "/photos/badoca2.jpg",
+    "/photos/badoca3.jpg",
+    "/photos/badoca4.jpg",
+    "/photos/badoca5.jpg",
+  ],
+  videos: [],
+},
+
+
 ];
 
 function formatDate(iso) {
