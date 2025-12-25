@@ -16,12 +16,12 @@ const ENTRIES = [
     id: "g-moments-lounge-tapas",
     section: "gastronomia",
     title: "Jantar — Moments Lounge Tapas",
-    date: "", // mete a data quando quiseres (ex: "2025-12-24")
+    date: "2025-10-02",// mete a data quando quiseres (ex: "2025-12-24")
     place: "Moments Lounge Tapas",
     description: "Segunda reunião. Polvo e tataki de atum. Sangria louca.",
     photos: ["/photos/moments1.jpg", "/photos/moments2.jpg"],
-    ratingInes: 7,
-    ratingTomas: 7,
+    ratingInes: "7.5",
+    ratingTomas: "7.5",
   },
   {
     id: "g-kamagami-ramen-2025-10-06",
@@ -32,8 +32,8 @@ const ENTRIES = [
     description:
       "Depois de um dia de praia fomos comer um belo ramen e uma bebida horripilante.",
     photos: ["/photos/ramen1.jpg"],
-    ratingInes: "⏳ loading…",
-    ratingTomas: "⏳ loading…",
+    ratingInes: "7",
+    ratingTomas: "7",
   },
 
   {
@@ -45,8 +45,8 @@ const ENTRIES = [
   description:
     "Carne muito boa e ótima relação qualidade/preço.",
   photos: ["/photos/cruzamento1.jpg"],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "7",
+  ratingTomas: "8",
 },
 {
   id: "g-torreao-tio-joaquim-2025-10-18",
@@ -57,8 +57,8 @@ const ENTRIES = [
   description:
     "Comemos migas e feijoada de búzios ao pé da praia dos Buzinhos, onde fomos muito felizes.",
   photos: ["/photos/otorreao.jpg"],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "8.5",
+  ratingTomas: "8.5",
 },
 
 {
@@ -75,8 +75,8 @@ const ENTRIES = [
     "/photos/jncquoi3.jpg",
     "/photos/jncquoi4.jpg",
   ],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "7",
+  ratingTomas: "7",
 },
 {
   id: "g-barista-gastrobar-2025-10-22",
@@ -87,8 +87,8 @@ const ENTRIES = [
   description:
     "Comida venezuelana — bem diferente e inspirador para futuros cozinhados. Bebidas com expectativa elevada mas não grande coisa.",
   photos: ["/photos/gastrobar1.jpg"],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "8",
+  ratingTomas: "7.5",
 },
 
 {
@@ -100,8 +100,8 @@ const ENTRIES = [
   description:
     "Comida horrível, mas valeu pelo stand-up de qualidade e pela companhia como sempre.",
   photos: ["/photos/zama1.jpg"],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "6.5",
+  ratingTomas: "6.5",
 },
 {
   id: "g-stack-smash-burgers-2025-10-27",
@@ -112,8 +112,8 @@ const ENTRIES = [
   description:
     "Hambúrgueres muito bons depois do trabalho — confortante.",
   photos: ["/photos/stack1.jpg"],
-  ratingInes: "⏳ loading…",
-  ratingTomas: "⏳ loading…",
+  ratingInes: "8",
+  ratingTomas: "8",
 },
 
 
