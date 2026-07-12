@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/assets/*.HEIC
+src/assets/*.heic
+src/assets/*.jpeg
+src/assets/*.jpg
+src/assets/*.mp4
