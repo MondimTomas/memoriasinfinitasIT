@@ -27,3 +27,4 @@ src/assets/*.heic
 src/assets/*.jpeg
 src/assets/*.jpg
 src/assets/*.mp4
+.env.local

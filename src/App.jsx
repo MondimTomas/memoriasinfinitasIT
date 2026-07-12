@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { supabase } from "./supabaseClient";
 import "./styles.css";
 
 const SECTIONS = [
@@ -857,10 +858,43 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(null);
 
+  const [dbRestaurants, setDbRestaurants] = useState([]);
+
+useEffect(() => {
+  async function loadRestaurants() {
+    const { data, error } = await supabase
+      .from("restaurants")
+      .select("*")
+      .order("date", { ascending: false });
+
+    if (error) {
+      console.error("Erro ao carregar restaurantes:", error);
+      return;
+    }
+
+    const mapped = (data || []).map((r) => ({
+      id: r.id,
+      section: "gastronomia",
+      title: r.title,
+      date: r.date || "",
+      place: r.place || "",
+      description: r.description || "",
+      photos: r.photos || [],
+      videos: r.videos || [],
+      ratingTomas: r.rating_tomas,
+      ratingInes: r.rating_ines,
+    }));
+
+    setDbRestaurants(mapped);
+  }
+
+  loadRestaurants();
+}, []);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    return ENTRIES
+   return [...dbRestaurants, ...ENTRIES]
       .filter((e) => e.section === activeSection)
       .filter((e) => {
         if (!q) return true;
@@ -897,7 +931,12 @@ export default function App() {
             <span className="brand__dot" />
             <span className="brand__name">Memórias</span>
           </div>
-          <div className="muted small">feito a dois</div>
+          <div className="headerActions">
+  <a className="manageButton" href="/admin">
+    Manage
+  </a>
+  <div className="muted small">feito a dois</div>
+</div>
         </div>
       </header>
 
